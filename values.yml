@@ -1,0 +1,128 @@
+admin:
+  user: admin
+#  password: password
+affinity: {}
+clusterDomain: cluster.local
+config:
+  customIniConfigMap: null
+  customIniSecret: null
+  grafanaIniConfigMap: null
+  grafanaIniSecret: null
+  useCustomIniFile: false
+  useGrafanaIniFile: false
+dashboardsConfigMaps: 
+  - configMapName: grafana-dashboard-cluster-total
+    fileName: cluster-total.json
+  - configMapName: grafana-dashboard-etcd
+    fileName: etcd.json
+  - configMapName: grafana-dashboard-k8s-resources-cluster
+    fileName: k8s-resources-cluster.json
+  - configMapName: grafana-dashboard-k8s-resources-namespace
+    fileName: k8s-resources-namespace.json
+  - configMapName: grafana-dashboard-k8s-resources-node
+    fileName: k8s-resources-node.json
+  - configMapName: grafana-dashboard-k8s-resources-pod
+    fileName: k8s-resources-pod.json
+  - configMapName: grafana-dashboard-k8s-resources-workload
+    fileName: k8s-resources-workload.json
+  - configMapName: grafana-dashboard-k8s-resources-workloads-namespace
+    fileName: k8s-resources-workloads-namespace.json
+  - configMapName: grafana-dashboard-node-cluster-rsrc-use
+    fileName: node-cluster-rsrc-use.json
+  - configMapName: grafana-dashboard-node-rsrc-use
+    fileName: node-rsrc-use.json
+  - configMapName: grafana-dashboard-prometheus
+    fileName: prometheus.json
+dashboardsProvider:
+  enabled: true
+datasources:
+  secretName: datasource-secret
+extraConfigmaps: {}
+extraEnvVars: {}
+image:
+  pullPolicy: IfNotPresent
+  registry: docker.io
+  repository: bitnami/grafana
+  tag: 7.0.3-debian-10-r9
+imageRenderer:
+  affinity: {}
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/grafana-image-renderer
+    tag: 1.0.12-debian-10-r26
+  metrics:
+    annotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: "8080"
+      prometheus.io/scrape: "true"
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  nodeSelector: {}
+  podAnnotations: {}
+  replicaCount: 1
+  securityContext:
+    enabled: false
+    runAsNonRoot: true
+  service:
+    port: 8080
+  tolerations: []
+ldap:
+  allowSignUp: false
+  enabled: false
+livenessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+metrics:
+  enabled: false
+  service:
+    annotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: "3000"
+      prometheus.io/scrape: "true"
+  serviceMonitor:
+    enabled: false
+nodeSelector: {}
+persistence:
+  accessMode: ReadWriteOnce
+  enabled: true
+#  storageClass: rook-ceph-block-internal
+  size: 10Gi
+podAnnotations: {}
+readinessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+replicaCount: 1
+resources:
+  limits: {}
+  requests: {}
+securityContext:
+  enabled: false
+  runAsNonRoot: true
+service:
+  annotations: {}
+  port: 3000
+  type: ClusterIP
+serviceAccount:
+  create: true
+sidecars: {}
+smtp:
+  enabled: false
+  existingSecretPasswordKey: password
+  existingSecretUserKey: user
+  password: password
+  user: user
+tolerations: []
+updateStrategy:
+  type: RollingUpdate
